@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddQuestionActivity">
+
+    <EditText
+        android:id="@+id/question_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter new question here"
+        />
+
+    <EditText
+        android:id="@+id/answer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_editText"
+        android:hint="Answer 1"
+        />
+
+
+    <EditText
+        android:id="@+id/answer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Answer 2"
+        android:layout_below="@id/answer1"
+        />
+
+    <EditText
+        android:id="@+id/answer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/answer2"
+        android:hint="Answer 3"
+        />
+
+    <EditText
+        android:id="@+id/answer4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/answer3"
+        android:hint="Answer 4"
+        />
+
+
+    <EditText
+        android:id="@+id/correct_answer_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer4"
+        android:inputType="number"
+        android:hint="Correct Answer"
+        />
+
+    <Spinner
+        android:id="@+id/category_addQ_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/correct_answer_editText"
+        android:layout_alignStart="@+id/start_button"
+        android:layout_alignLeft="@+id/start_button"
+        android:layout_marginTop="20dp"/>
+
+    <Spinner
+        android:id="@+id/difficulty_addQ_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_addQ_spinner"
+        android:layout_alignStart="@+id/start_button"
+        android:layout_alignLeft="@+id/start_button"
+        android:layout_marginTop="20dp"
+        >
+    </Spinner>
+
+
+
+
+
+    <Button
+        android:id="@+id/add_question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/difficulty_addQ_spinner"
+        android:text="Add"
+        />
+
+</RelativeLayout>
