@@ -4,88 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddQuestionActivity">
+    tools:context=".AddQuestionActivity"
+    android:background="@drawable/bg"
+    >
 
     <EditText
         android:id="@+id/question_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:hint="Enter new question here"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:textAlignment="center"
         />
 
     <EditText
         android:id="@+id/answer1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/question_editText"
+        android:layout_centerHorizontal="true"
         android:hint="Answer 1"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+
         />
 
 
     <EditText
         android:id="@+id/answer2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Answer 2"
         android:layout_below="@id/answer1"
+        android:layout_centerHorizontal="true"
+        android:hint="Answer 2"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+
         />
 
     <EditText
         android:id="@+id/answer3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/answer2"
+        android:layout_centerHorizontal="true"
         android:hint="Answer 3"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+
         />
 
     <EditText
         android:id="@+id/answer4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/answer3"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
         android:hint="Answer 4"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:textAlignment="center"
         />
 
 
-    <EditText
-        android:id="@+id/correct_answer_editText"
+    <Spinner
+        android:id="@+id/correct_answer_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/answer4"
-        android:inputType="number"
-        android:hint="Correct Answer"
+        android:layout_below="@id/answer4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/login_form"
         />
 
     <Spinner
         android:id="@+id/category_addQ_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/correct_answer_editText"
+        android:layout_below="@id/correct_answer_spinner"
         android:layout_alignStart="@+id/start_button"
         android:layout_alignLeft="@+id/start_button"
-        android:layout_marginTop="20dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/login_form"
+        />
 
     <Spinner
         android:id="@+id/difficulty_addQ_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/category_addQ_spinner"
+        android:layout_centerHorizontal="true"
         android:layout_alignStart="@+id/start_button"
         android:layout_alignLeft="@+id/start_button"
         android:layout_marginTop="20dp"
+        android:textColor="@color/login_form"
         >
     </Spinner>
 
-
-
-
-
     <Button
         android:id="@+id/add_question_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/difficulty_addQ_spinner"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_bg"
         android:text="Add"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/login_form"
         />
 
 </RelativeLayout>

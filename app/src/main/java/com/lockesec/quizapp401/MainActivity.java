@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private int highScore;
 
     private Button startButton;
-    private Button editProfileButton;
-    private Button addQuestionButtonMain;
 
     private Spinner categorySpinner;
     private Spinner difficultySpinner;
@@ -55,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper = DatabaseHelper.getInstance(this);
+
+        DrawerUtil.getDrawer(this);
 
         initCategorySpinner();
         initDifficultySpinner();
@@ -71,21 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addQuestionButtonMain = findViewById(R.id.add_question_button_main);
-        addQuestionButtonMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddQuestionActivity.class));
-            }
-        });
-
-        editProfileButton = findViewById(R.id.edit_profile_button);
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editProfile();
-            }
-        });
     }
 
     @Override

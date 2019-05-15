@@ -4,24 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg"
     tools:context=".ProfileActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        >
-
-    </android.support.v7.widget.Toolbar>
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="Tap on camera to choose profile picture"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_marginTop="55dp"
+        android:textColor="@color/login_form"
         />
 
 
@@ -36,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="55dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/camera"
+            android:background="@drawable/camera3"
             />
         
         <ProgressBar
@@ -55,18 +48,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter display name"
+        android:textColorHint="@color/login_form"
+        android:textColor="@color/login_form"
+        android:padding="12dp"
         />
 
     <Button
         android:id="@+id/save_profile_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_width="155dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="35dp"
         android:layout_gravity="center"
         android:paddingLeft="55dp"
         android:paddingRight="55dp"
         android:text="Save"
         android:textAllCaps="false"
+        android:background="@drawable/button_bg"
+        />
+
+    <Button
+        android:id="@+id/cancel_save_button"
+        android:layout_width="155dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:paddingLeft="55dp"
+        android:paddingRight="55dp"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:background="@drawable/button_bg"
         />
 
 </LinearLayout>

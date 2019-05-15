@@ -22,8 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
-
     private EditText loginEmailEditText, loginPasswordEditText;
     private Button signInButton;
 
@@ -38,8 +36,6 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        initNavDrawer();
 
         loginEmailEditText = findViewById(R.id.signin_email_editText);
         loginPasswordEditText = findViewById(R.id.signin_password_editText);
@@ -76,37 +72,6 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void initNavDrawer()
-    {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId())
-                {
-                    case R.id.nav_edit_profile:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        break;
-
-                    case R.id.nav_sign_in:
-                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
-                        break;
-                }
-
-                return true;
-            }
-        });
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-    }
 
     private void displayMainActivity()
     {

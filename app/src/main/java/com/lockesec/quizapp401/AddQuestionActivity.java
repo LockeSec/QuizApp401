@@ -41,7 +41,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         answer3ET = findViewById(R.id.answer3);
         answer4ET = findViewById(R.id.answer4);
 
-        correctAnswer = findViewById(R.id.correct_answer_editText);
+//        correctAnswer = findViewById(R.id.correct_answer_editText);
 
         initCategorySpinner();
         initDifficultySpinner();

@@ -40,7 +40,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private ImageView profilePictureImageView;
     private EditText displayNameEditText;
+
     private Button saveProfileButton;
+    private Button cancelSaveButton;
 
     private Uri profilePictureURI;
 
@@ -56,13 +58,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         progressBar = findViewById(R.id.profile_progress_bar);
         profilePictureImageView = findViewById(R.id.change_profile_pic_imageView);
         displayNameEditText = findViewById(R.id.display_name_editText);
+
         saveProfileButton = findViewById(R.id.save_profile_button);
+        cancelSaveButton = findViewById(R.id.cancel_save_button);
 
         loadUser();
 
@@ -77,6 +78,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUser();
+            }
+        });
+
+        cancelSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
             }
         });
     }
@@ -110,24 +118,12 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        ProfileManager.getInstance().saveUser(displayName, profilePictureURL);
+    }
 
-        if (user != null && profilePictureURL != null) {
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName)
-                    .setPhotoUri(Uri.parse(profilePictureURL))
-                    .build();
-
-            user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Updated Profile", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }
-            });
-        }
+    private void cancel()
+    {
+        finish();
     }
 
     @Override

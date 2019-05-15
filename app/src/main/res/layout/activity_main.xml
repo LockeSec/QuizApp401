@@ -56,24 +56,6 @@
         >
     </Spinner>
 
-    <Button
-        android:id="@+id/add_question_button_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/difficulty_spinner"
-        android:layout_centerHorizontal="true"
-        android:text="Add Question"
-        />
-
-    <Button
-        android:id="@+id/edit_profile_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/add_question_button_main"
-        android:text="Edit Profile"
-        />
 
 </RelativeLayout>
 
