@@ -3,32 +3,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="176dp"
+    android:background="@color/colorAccent"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Light"
-    android:background="@color/colorAccent"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_quizapp_logo_24dp"
         />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Quiz App"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CS401 Final Project"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="QuizApp401"
+        android:textColor="@color/login_form"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:text="CS401 Final Project"
+        android:textColor="@color/login_form"
+        android:textSize="14sp"
         />
 
 </LinearLayout>

@@ -37,7 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final int CHOOSE_PROFILE_PICTURE = 100;
 
-
     private ProgressBar progressBar;
     private ImageView profilePictureImageView;
     private EditText displayNameEditText;
@@ -99,30 +98,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        return true;
-    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {
-//        switch(item.getItemId())
-//        {
-//            case R.id.logout_menu_item:
-//                FirebaseAuth.getInstance().signOut();
-//                finish();
-//                startActivity(new Intent(this, SignUpActivity.class));
-//                break;
-//        }
-//
-//        return true;
-//    }
 
     private void saveUser()
     {

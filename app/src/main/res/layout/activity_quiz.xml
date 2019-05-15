@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg"
     android:padding="10dp"
     tools:context=".QuizActivity">
 
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Score: 0"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/login_form"
         android:freezesText="true"
         />
 
@@ -24,7 +25,7 @@
         android:layout_below="@+id/currentScore_textView"
         android:text="Difficulty: "
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/login_form"
         android:freezesText="true"
         />
 
@@ -35,7 +36,7 @@
         android:layout_below="@+id/difficulty_textView"
         android:text="Category: "
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/login_form"
         android:freezesText="true"
         />
 
@@ -48,7 +49,8 @@
         android:layout_marginTop="98dp"
         android:freezesText="true"
         android:text="Question 1 of x"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/login_form"
+        />
 
     <TextView
         android:id="@+id/countDown_textView"
@@ -58,7 +60,7 @@
         android:layout_alignParentRight="true"
         android:text="00:30"
         android:textSize="36sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/login_form"
         android:freezesText="true"
         />
 
@@ -72,7 +74,7 @@
         android:freezesText="true"
         android:text=" This is placeholder text\n This is placeholder text\n This is placeholder text\n"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/login_form"
         android:textSize="18sp" />
 
     <RadioGroup
@@ -81,13 +83,14 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:paddingTop="30dp"
-        android:textColor="@android:color/black">
+        >
 
         <RadioButton
             android:id="@+id/radio_button_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
+            android:textColor="@color/login_form"
             android:text="Answer 1" />
 
         <RadioButton
@@ -96,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/radio_group"
             android:freezesText="true"
+            android:textColor="@color/login_form"
             android:text="Answer 2" />
 
         <RadioButton
@@ -103,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
+            android:textColor="@color/login_form"
             android:text="Answer 3" />
 
         <RadioButton
@@ -110,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:freezesText="true"
+            android:textColor="@color/login_form"
             android:text="Answer 4" />
 
     </RadioGroup>
@@ -121,6 +127,11 @@
         android:layout_below="@id/radio_group"
         android:layout_marginTop="62dp"
         android:freezesText="true"
-        android:text="Submit" />
+        android:text="Submit"
+        android:textSize="20sp"
+        android:textColor="@color/login_form"
+        android:textAllCaps="false"
+        android:background="@drawable/button_bg"
+        />
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,27 +36,24 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    private NavigationDrawer navigationDrawer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-//        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), NavDrawerActivity.class));
 
         FirebaseApp.initializeApp(this);
-
         firebaseAuth = FirebaseAuth.getInstance();
 
-        progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.signup_progress_bar);
 
-        registerButton = findViewById(R.id.register_button);
+        registerButton = findViewById(R.id.signup_register_button);
 
-        emailEditText = findViewById(R.id.email_editText);
-        passwordEditText = findViewById(R.id.password_editText);
+        emailEditText = findViewById(R.id.signup_email_editText);
+        passwordEditText = findViewById(R.id.signup_password_editText);
 
-        signInTextView = findViewById(R.id.signIn_textView);
+        signInTextView = findViewById(R.id.signup_login_textView);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
