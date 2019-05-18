@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -35,9 +37,10 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         FirebaseApp.initializeApp(this);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
-        startActivity(new Intent(this, AddQuestionActivity.class));
+//        startActivity(new Intent(this, LeaderboardActivity.class));
 
         progressBar = findViewById(R.id.signup_progress_bar);
 
@@ -87,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+//                    createNewProfileWithDefaults();
                     signIn();
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException)
@@ -99,6 +103,19 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void createNewProfileWithDefaults()
+//    {
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//        String id = user.getUid();
+//        String defaultName = user.getEmail();
+//        int defaultScore = 0;
+//
+//        Profile profile = new Profile(id, defaultName, defaultScore);
+//
+//        FirebaseDatabase.getInstance().getReference("profiles").child(id).setValue(profile);
+//    }
 
     private void signIn()
     {

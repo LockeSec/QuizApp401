@@ -53,8 +53,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private void login()
     {
-        String email = loginEmailEditText.getText().toString();
-        String password = loginPasswordEditText.getText().toString();
+        String email = loginEmailEditText.getText().toString().trim();
+        String password = loginPasswordEditText.getText().toString().trim();
 
         progressBar.setVisibility(View.VISIBLE);
 

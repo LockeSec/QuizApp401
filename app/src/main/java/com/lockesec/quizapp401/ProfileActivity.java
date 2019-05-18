@@ -8,10 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -77,14 +75,15 @@ public class ProfileActivity extends AppCompatActivity {
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUser();
+                save();
+                backToMainActivity();
             }
         });
 
         cancelSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancel();
+                backToMainActivity();
             }
         });
     }
@@ -107,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void saveUser()
+    private void save()
     {
         String displayName = displayNameEditText.getText().toString();
 
@@ -118,12 +117,44 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        ProfileManager.getInstance().saveUser(displayName, profilePictureURL);
+        int score = getSharedPreferences(MainActivity.SHARED_PREFERENCES, MODE_PRIVATE).getInt(MainActivity.HIGH_SCORE_KEY, 0);
+
+        saveUserToFirebase(displayName, profilePictureURL);
+        saveUserDataToRealTimeDatabase(profilePictureURL, displayName, score);
     }
 
-    private void cancel()
+    public void saveUserToFirebase(String name, String profilePictureURL)
     {
-        finish();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            Log.d("saving to firebase: ", "true");
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .setPhotoUri(Uri.parse(profilePictureURL))
+                    .build();
+
+            user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ProfileActivity.this, "Profile updated", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                        Log.d("Some stupid exception: ", task.getException().toString());
+                }
+            });
+        }
+    }
+
+    public void saveUserDataToRealTimeDatabase(String profilePictureURL, String displayName, int score)
+    {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        String id = user.getUid();
+        Profile profile = new Profile(id, profilePictureURL, displayName, score);
+
+        FirebaseDatabase.getInstance().getReference("profiles").child(id).setValue(profile);
     }
 
     @Override
@@ -145,7 +176,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null )
         {
             if (user.getPhotoUrl() != null) {
-                Glide.with(this).load(user.getPhotoUrl().toString()).into(profilePictureImageView);
+                Glide.with(this).load(user.getPhotoUrl().toString()).circleCrop().into(profilePictureImageView);
             }
 
             if (user.getDisplayName() != null) {
@@ -153,6 +184,14 @@ public class ProfileActivity extends AppCompatActivity {
                 displayNameEditText.setText(displayName);
             }
         }
+    }
+
+    private void backToMainActivity()
+    {
+        finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void selectProfilePicture()
