@@ -90,7 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
-//                    createNewProfileWithDefaults();
                     signIn();
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException)
@@ -104,18 +103,10 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-//    private void createNewProfileWithDefaults()
-//    {
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//
-//        String id = user.getUid();
-//        String defaultName = user.getEmail();
-//        int defaultScore = 0;
-//
-//        Profile profile = new Profile(id, defaultName, defaultScore);
-//
-//        FirebaseDatabase.getInstance().getReference("profiles").child(id).setValue(profile);
-//    }
+    private void createProfileWithDefaults()
+    {
+
+    }
 
     private void signIn()
     {

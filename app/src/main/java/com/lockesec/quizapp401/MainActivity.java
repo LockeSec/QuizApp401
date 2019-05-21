@@ -2,16 +2,27 @@ package com.lockesec.quizapp401;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
 
     private TextView highScoreTextView;
-
-    private int highScore;
 
     private Button startButton;
 
@@ -63,27 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_CODE)
-            if (resultCode == RESULT_OK) {
-                int score = data.getIntExtra(QuizActivity.HIGH_SCORE, 0);
-                if(score > highScore){
-                    highScore = score;
-                    highScoreTextView.setText("High Score: " + highScore);
-
-                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putInt(HIGH_SCORE_KEY, highScore);
-                    editor.apply();
-                }
-            }
-    }
-
     private void start()
     {
         Category selectedCategory = (Category) categorySpinner.getSelectedItem();
@@ -108,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         List<Category> categoryList = databaseHelper.getAllCategories();
 
         categorySpinner = findViewById(R.id.category_spinner);
-        ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<Category>(this, R.layout.spinner_item, categoryList);
+        ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, categoryList);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);;
 
         categorySpinner.setAdapter(categoryAdapter);
@@ -118,24 +106,31 @@ public class MainActivity extends AppCompatActivity {
     {
         difficultySpinner = findViewById(R.id.difficulty_spinner);
         String[] difficulties = Question.getAllDifficultyLevels();
-        ArrayAdapter<String> difficultyAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, difficulties);
+        ArrayAdapter<String> difficultyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, difficulties);
         difficultyAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         difficultySpinner.setAdapter(difficultyAdapter);
     }
 
     private void loadHighScore()
     {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        highScore = sharedPreferences.getInt(HIGH_SCORE_KEY, 0);
+        FirebaseDatabase.getInstance().getReference("profiles").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    int score;
+                    Profile profile = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(Profile.class);
+                    if (profile == null)
+                        score = 0;
+                    else
+                        score = profile.getScore();
 
-        highScoreTextView.setText("High Score: " + highScore);
+                    highScoreTextView.setText("High Score: " + score);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
-
-    private void editProfile()
-    {
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        startActivity(intent);
-    }
-
 }

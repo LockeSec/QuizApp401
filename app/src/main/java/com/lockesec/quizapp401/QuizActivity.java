@@ -5,14 +5,22 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,6 +155,8 @@ public class QuizActivity extends AppCompatActivity {
                     getNextQuestion();
             }
         });
+
+        DrawerUtil.getDrawer(this);
     }
 
     private void checkAnswer()
@@ -275,12 +285,35 @@ public class QuizActivity extends AppCompatActivity {
 
     private void end()
     {
-        Intent intent = new Intent();
+        saveScore();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
-        intent.putExtra(HIGH_SCORE, score);
-        setResult(RESULT_OK, intent);
+    private void saveScore()
+    {
+        FirebaseDatabase.getInstance().getReference("profiles").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Profile profile = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(Profile.class);
+                int databaseScore = profile.getScore();
+                Log.d("game score: ", score + "");
+                Log.d("database score: ", databaseScore + "");
 
-        finish();
+                if (score > databaseScore) {
+                    profile.setScore(score);
+                    FirebaseDatabase.getInstance().getReference("profiles").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profile);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     @Override

@@ -62,6 +62,7 @@
         android:paddingLeft="55dp"
         android:paddingRight="55dp"
         android:text="Save"
+        android:textColor="@color/login_form"
         android:textAllCaps="false"
         android:background="@drawable/button_bg"
         />
@@ -74,7 +75,8 @@
         android:layout_gravity="center"
         android:paddingLeft="55dp"
         android:paddingRight="55dp"
-        android:text="Cancel"
+        android:text="Back"
+        android:textColor="@color/login_form"
         android:textAllCaps="false"
         android:background="@drawable/button_bg"
         />

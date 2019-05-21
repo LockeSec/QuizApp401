@@ -9,16 +9,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddQuestionActivity extends AppCompatActivity {
 
     private EditText questionEditText;
     private EditText answer1ET, answer2ET, answer3ET, answer4ET;
-    private EditText correctAnswer;
 
     private Button addQuestionButton;
 
+    private Spinner correctAnswerSpinner;
     private Spinner categorySpinner;
     private Spinner difficultySpinner;
 
@@ -39,8 +40,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         answer3ET = findViewById(R.id.answer3);
         answer4ET = findViewById(R.id.answer4);
 
-//        correctAnswer = findViewById(R.id.correct_answer_editText);
-
+        initCorrectAnswerSpinner();
         initCategorySpinner();
         initDifficultySpinner();
 
@@ -55,7 +55,7 @@ public class AddQuestionActivity extends AppCompatActivity {
                 String answer3 = answer3ET.getText().toString();
                 String answer4 = answer4ET.getText().toString();
 
-                int correctAnsNum = Integer.parseInt(correctAnswer.getText().toString());
+                int correctAnsNum = (int) correctAnswerSpinner.getSelectedItem();
 
                 Category selectedCategory = (Category) categorySpinner.getSelectedItem();
                 String difficulty = difficultySpinner.getSelectedItem().toString();
@@ -67,6 +67,21 @@ public class AddQuestionActivity extends AppCompatActivity {
             }
         });
 
+        DrawerUtil.getDrawer(this);
+    }
+
+    private void initCorrectAnswerSpinner()
+    {
+        List<Integer> correctAnswerList = new ArrayList<Integer>();
+        correctAnswerList.add(1);
+        correctAnswerList.add(2);
+        correctAnswerList.add(3);
+        correctAnswerList.add(4);
+
+        correctAnswerSpinner = findViewById(R.id.correct_answer_spinner);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, correctAnswerList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        correctAnswerSpinner.setAdapter(adapter);
     }
 
     private void initCategorySpinner()
@@ -90,5 +105,6 @@ public class AddQuestionActivity extends AppCompatActivity {
     private void addQuestion(Question question)
     {
         databaseHelper.insertQuestion(question);
+        finish();
     }
 }

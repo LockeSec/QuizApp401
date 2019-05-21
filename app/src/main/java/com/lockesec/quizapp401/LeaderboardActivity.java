@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
@@ -32,6 +34,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("profiles");
 
         displayLeaderboard();
+        DrawerUtil.getDrawer(this);
     }
 
     private void displayLeaderboard()
@@ -46,6 +49,8 @@ public class LeaderboardActivity extends AppCompatActivity {
                     profileList.add(profile);
                 }
 
+                Collections.sort(profileList, new SortByScore());
+
                 ListView listView = findViewById(R.id.leaderboard_listView);
 
                 ProfileListAdapter adapter = new ProfileListAdapter(getApplicationContext(), R.layout.list_view_adapter, profileList);
@@ -57,5 +62,15 @@ public class LeaderboardActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    class SortByScore implements Comparator<Profile>
+    {
+        // Used for sorting in ascending order of
+        // roll number
+        public int compare(Profile a, Profile b)
+        {
+            return b.getScore() - a.getScore();
+        }
     }
 }
